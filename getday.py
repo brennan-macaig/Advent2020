@@ -1,23 +1,18 @@
-from urllib.request import Request, urlopen, HTTPError as httperr
 from environ import header
+import sys
+import browser_cookie3
+import requests
 
 baseURL = "https://adventofcode.com/2020/day/"
 def get_data(day):
+    print("get: fetching cookie")
+    cj = browser_cookie3.chrome()
     print("get: waiting for response...")
-    req = Request(baseURL + str(day) + "/input")
-
-    req.add_header("cookie", header)
-    try:
-        content = urlopen(req).read().decode('utf-8')
-    except httperr as err:
-        print("http error - " + str(err.reason))
-        return 1
+    r = requests.get(f"https://adventofcode.com/2020/day/{day}/input", cookies = cj)
     
-    filename = "inputs/day" + str(day) + ".txt"
-    f = open(filename, "w")
-    f.write(content)
-    f.close()
-    print("done. wrote " + str(len(content)) + " chars to " + filename)
+    with open(f"input/day{day}.txt","w") as f:
+        f.write(r.text)
+    print("done!")
 
 if len(sys.argv) != 2:
     print("usage: getday <day>")
