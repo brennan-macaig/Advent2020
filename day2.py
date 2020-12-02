@@ -27,6 +27,6 @@ for line in content:
     r = l[0].split('-') # r[0] is low, r[1] is high
     c = l[1][0]
     p = l[2]
-    if (p[int(r[0])-1] == c and not p[int(r[1])-1] == c) or (not p[int(r[0])-1] == c and p[int(r[1])-1] == c): # xor
+    if ((p[int(r[0])-1] == c) != (p[int(r[1])-1] == c)): # xor
         total += 1
 print("part2 total: " + str(total))
