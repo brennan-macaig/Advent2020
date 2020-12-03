@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-from environ import header
 import sys
 import browser_cookie3
 import requests
